@@ -19,7 +19,21 @@
 (global-set-key (kbd "C-a") 'mark-whole-buffer)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq-default standard-indent 4)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(global-set-key (kbd "C-x s") #'other-window)
+(add-hook
+ 'window-setup-hook
+ (lambda ()
+   (delete-other-windows)
+   (switch-to-buffer "*scratch*")
+   (let ((right (split-window-right)))
+     (when-let ((splash (get-buffer "*GNU Emacs*")))
+       (set-window-buffer right splash)))))
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (setq c-basic-offset 4)
+            (setq-local indent-tabs-mode nil)))
 
 (defun move-line-up ()
   (interactive)
