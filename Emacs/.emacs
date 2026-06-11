@@ -20,7 +20,8 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(global-set-key (kbd "C-x s") #'other-window)
+(global-set-key (kbd "C-1") #'windmove-left)
+(global-set-key (kbd "C-2") #'windmove-right)
 (add-hook
  'window-setup-hook
  (lambda ()
@@ -33,7 +34,13 @@
 (add-hook 'c-mode-common-hook
           (lambda ()
             (setq c-basic-offset 4)
-            (setq-local indent-tabs-mode nil)))
+            (setq-local indent-tabs-mode nil)
+            (c-set-offset 'substatement-open 0)))
+
+(setq backup-directory-alist
+      `(("." . "~/.emacs.d/backups")))
+(setq auto-save-file-name-transforms
+      `((".*" "~/.emacs.d/auto-saves/" t)))
 
 (defun move-line-up ()
   (interactive)
@@ -46,5 +53,11 @@
   (transpose-lines 1)
   (forward-line -1))
 
+(defun occur-symbol-at-point ()
+  (interactive)
+  (occur (thing-at-point 'symbol t)))
+
 (global-set-key (kbd "M-<down>") 'move-line-down)
 (global-set-key (kbd "M-<up>") 'move-line-up)
+(global-set-key (kbd "C-s") #'occur-symbol-at-point)
+(global-set-key (kbd "C-f") #'isearch-forward)
