@@ -37,7 +37,10 @@
           (lambda ()
             (setq c-basic-offset 4)
             (setq-local indent-tabs-mode nil)
-            (c-set-offset 'substatement-open 0)))
+            (c-set-offset 'substatement-open 0)
+            (c-set-offset 'case-label '+)
+            (c-set-offset 'statement-case-intro '+)
+            (c-set-offset 'statement-case-open 0)))
 
 (defun move-line-up ()
   (interactive)
