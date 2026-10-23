@@ -1,6 +1,12 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
+(setq auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "tmp/autosaves/" user-emacs-directory) t)))
+(setq create-lockfiles nil)
+
 (when (eq system-type 'windows-nt)
   (setq package-check-signature nil))
 
